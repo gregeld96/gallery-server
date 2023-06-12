@@ -16,6 +16,21 @@ class ImageController {
         }
     }
 
+    static async getUserImages(req, res, next) {
+        try {
+            res.status(200).json({
+                success: true,
+                message: "Successful get all image!",
+                data: await ImageService.getUserImages({
+                    auth: req.classified,
+                })
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+    
+
     static async getCategories(req, res, next) {
         try {
             res.status(200).json({

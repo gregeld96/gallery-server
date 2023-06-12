@@ -39,6 +39,29 @@ class ImageService {
         }
     }
 
+    static async getUserImages({
+        auth
+    }){
+        try {
+
+            let all = await Image.findAll({
+                where: {
+                    accountId: auth.userId
+                }
+            });
+
+            return {
+                list: all
+            }
+        } catch (error) {
+            throw({
+                error
+            })
+        }
+    }
+
+    
+
     static async getDetail({
         slug
     }){
@@ -104,6 +127,7 @@ class ImageService {
 
             await Image.create(newImage);
         } catch (error) {
+            console.log(error);
             removePhoto(file.path);
             throw({
                 error
